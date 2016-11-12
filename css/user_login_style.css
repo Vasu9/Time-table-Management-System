@@ -1,0 +1,154 @@
+* {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+*:before, *:after {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
+
+.login_img img{
+  max-width: 80%;
+  height: 100%
+}
+
+.user_login{
+  
+  padding: 20px;
+  padding-bottom: 20px;
+  padding-top: 0px;
+  border:1px;
+  border-color: #000;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.7);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.7);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.7);
+  max-width: 320px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px
+
+
+}
+
+.pad{
+  padding-bottom: 40px
+}
+
+input {
+  border: none;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5em;
+  padding: 0;
+  -webkit-appearance: none;
+}
+
+p {
+  line-height: 1.5em;
+  color: #fff
+}
+
+#login form span {
+  background-color: #363b41;
+  border-radius: 3px 0px 0px 3px;
+  color: #606468;
+  display: block;
+  float: left;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 50px;
+}
+
+#login form input {
+  height: 50px;
+}
+
+#login form input[type="text"], input[type="password"] {
+  background-color: #3b4148;
+  border-radius: 0px 3px 3px 0px;
+  color: #606468;
+  margin-bottom: 1em;
+  padding: 0 16px;
+  width: 230px;
+}
+
+#login form input[type="submit"] {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #ea4c88;
+  color: #eee;
+  font-weight: bold;
+  margin-bottom: 2em;
+  text-transform: uppercase;
+  width: 280px;
+}
+
+#login form input[type="submit"]:hover {
+  background-color: #d44179;
+}
+
+#login > p {
+  text-align: center;
+  color: #fff
+}
+
+#login > p span {
+  padding-left: 5px;
+}
+
+#login a{
+  color:#fff 
+}
+
+#login h2{
+  text-align: center;
+  color: #fff;
+  padding:10px;
+}
+
+.social_fb i{
+  padding: 20px
+}
+
+
+
+/*      user_add_group        */
+.user_add_group{
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000
+}
+.user_add_group h2{
+  color: #000;
+  margin: 0;
+  padding: 0
+}
+
+.add_group_send_css input[type="submit"] {
+  background: #000;
+  color: #eee;
+  font-weight: bold;
+   border-radius: 3px;
+   width: 200px;
+   padding: 10px
+}
+
+.user_group {
+
+  padding:40px;
+  color: #000;
+  padding-right: 95px
+
+}
+
+.user_add_group_detail{
+  padding-top: 20px;
+
+}
+
+.user_add_group_detail p{
+  color: #000
+}
