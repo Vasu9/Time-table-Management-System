@@ -4,7 +4,7 @@ session_start();
 $user = $_SESSION['username'];
 $log = $_SESSION['member'];
 if ($log != "log"){
-	header ("Location: login.php");
+	header ("Location: userlogin.php");
 }
 ?>
 
@@ -58,25 +58,20 @@ if ($log != "log"){
 			
 			<div class="col-md-5"></div>
 			<div class="col-md-4 noti">
-				<div class="dropdown inline">
-					  <button class="notibutton  dropdown-toggle" type="button" data-toggle="dropdown">
-					  	<me class="fa fa-bell fa-2x" aria-hidden="true"></me>
-					  </button>
-					  <ul class="dropdown-menu">
-						    <li><a href="#">HTML</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">CSS</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">JavaScript</a></li>
-						    <li class="divider"></li>
-						   	<li><a href="#" class="notiexec">See more</a></li> 
-					  </ul>
-				</div>
+				
 			
 				<div class="dropdown inline">
 					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
 					  <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-					   Hello <?php print strtoupper($user); ?>
+					   Hello  Hello <?php 
+
+$sql ="SELECT * FROM info WHERE email='$user'";
+$result = mysql_query($sql);
+while ($db_field = mysql_fetch_assoc($result)) {
+	$name = $db_field['name'];
+	print strtoupper($name);
+}
+?>
 					  <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
 					    
@@ -88,6 +83,12 @@ if ($log != "log"){
 			</div>
 		</div>
 	</div>
+
+
+<div class="main">
+<div class="container">
+
+
 
 <?php
 
@@ -115,6 +116,25 @@ if (isset($_POST['chage_upass'])) {
 		}
 	}
 }	
+if (isset($_POST['change_pro'])) {
+
+	$change_name = $_POST['change_name'];
+	$change_mobile = $_POST['change_mobile'];
+	$SQL = "SELECT * FROM info WHERE email = '$user'";
+	$result = mysql_query($SQL);
+	$SQL = "UPDATE info SET name  = '$change_name' ,mobile='$change_mobile' WHERE email = '$user'";
+	mysql_query($SQL);
+	$msg1 = "profiile update sucessfully";
+	mysql_close($db_handle);
+
+}	
+	$SQL = "SELECT * FROM info WHERE email = '$user'";
+	$result = mysql_query($SQL);
+	while ($db_field = mysql_fetch_assoc($result)) {
+		$b= $db_field['name'];
+		$c= $db_field['doj'];
+		$d= $db_field['mobile'];
+	}	
 ?>		
 
 
@@ -122,12 +142,43 @@ if (isset($_POST['chage_upass'])) {
 
 
 
-<div class="main">
-<div class="container">
 	
 	<div class="col-md-12 domain_form">
 		
     	<div class="row ">
+    	<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							
+							<div class="col-xs-12">
+								<a href="#" id="register-form-link" class="active">Profile</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<form  id="register-form" action="user_setting.php" method="post" style="display: block;">
+									<div class="form-group">
+										<input type="text" name="change_name"  tabindex="1" class="form-control" value="<?php echo $b;?>" >
+									</div>	
+									
+									<div class="form-group">	
+										<input type="text" name="change_mobile"  tabindex="1" class="form-control" value="<?php echo $d;?>" >
+									</div>	
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+											<?php echo $msg1 ;?> 
+												<input type="submit" name="change_pro" id="register-submit" tabindex="4" class="form-control  btn-register" value="update">
+											</div>
+										</div>
+									</div>
+							</form>
+						
+					</div>
+				</div>
+			</div>
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
 					<div class="panel-heading">
@@ -175,9 +226,8 @@ if (isset($_POST['chage_upass'])) {
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="about.html">About Us</a></li>
-				<li><a href="contact.html">Contact Us</a></li>
-				<li><a href="domain.html">Domain</a></li>
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 
 			</ul>
 		</div>

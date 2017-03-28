@@ -118,9 +118,8 @@ if (isset($_POST['user_register_verify'])) {
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 
 			</ul>
 		</div>

@@ -1,3 +1,24 @@
+<?php
+
+
+session_start();
+if($_SESSION['admin']){
+	mysql_close($db_handle);
+	header("Location:domainhome.php");
+	break;
+}
+else if($_SESSION['member']){
+	mysql_close($db_handle);
+	header ("Location: userhomepage.php");
+	break;
+}
+
+else{
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +38,6 @@
 <!-- stylesheet-->
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/domain_style.css">
 
 <!-- bootstrap-->	
 
@@ -46,11 +66,21 @@
       </button>
       <a class="navbar-brand" href="index.php">docket</a>
     </div>
-   
+    <div class="collapse navbar-collapse menu" id="myNavbar">
+      
+      <ul class="nav navbar-nav navbar-right ">
+        <li><a href="userlogin.php">Log In</a></li>
+		
+      </ul>
+
+      
+    </div>
   </div>
 </nav>
 
-<div class="main">
+
+
+<div class="main" style="padding-top: 100px ">
 <div class="container">
 	
 	<div class="col-md-12 domain_form">
@@ -58,12 +88,12 @@
     	<div class="row ">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
-					<div class="panel-heading">
-						Succesfully Apply
+					<div class="panel-heading middle" >
+						<b>Succesfully 
 						<br>
 						
-						Our team will contact you asap.
-						<hr>
+						You succesfully register
+						<hr></b>
 					</div>
 					
 				</div>
@@ -79,10 +109,8 @@
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 	

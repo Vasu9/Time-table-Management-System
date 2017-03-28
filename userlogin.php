@@ -73,16 +73,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="It is a time scheduling app for a specific organisation.">
 	<meta name="author" content="vasundhra sharma,kshitiz gupta,sakshi sharma,rishabh kapoor,sanyam jain and pushpendra bansal">
-
 <!-- stylesheet-->
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/user_login_style.css">
 
+
 <!-- bootstrap-->	
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
 
 <!-- icons-->
 
@@ -109,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   </div>
 </nav>
 
-<div class="main">
+<div class="main" style="background:url(images/head1.jpg);">
 <div class="container">
 	
 	<div class="user_login col-md-4 col-md-offset-8" id="login" >
@@ -121,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
            		 <p><input type="submit" value="Sign In" name="user_login_submit"></p>
 			</form>
 			
-			<p>Not a member ?  <a href="usersignup.php" class="blue"> Sign up now</a></p>
+			<p><a href="usersignup.php" class="blue"> Sign up now</a></p>
 	</div>
 </div>
 </div>	
@@ -129,8 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 
 			</ul>
 		</div>

@@ -1,0 +1,96 @@
+.main
+{
+	background:transparent;
+	background-color:white;
+}
+
+.jumbotron
+{
+	background:transparent;
+}
+
+.jumbotron > h1 , .jumbotron > p
+{
+	color:#3e3e3e;
+	font-family: 'Roboto',sans-serif;
+	text-align: center;
+}
+
+.jumbotron > p
+{
+
+	margin-top:3em;
+}
+
+.line
+{
+	width:200px;
+	display:block;
+	min-height:2px;
+	background-color:#3e8acc;
+	content:" ";
+	margin:10px auto;
+	
+}
+.team>h1
+{
+	font-size:5em;
+	font-weight:bold;
+	text-align:center;
+}
+.team > ul > li
+{
+	list-style: none;
+	padding:50px;
+}
+.team .line
+{
+	width:250px;
+}
+figure
+{
+	text-align: center;
+	border:1px solid #eee;
+	padding:2em;
+}
+.team_name
+{
+	font-family: 'Roboto', sans-serif;
+	font-size:2.2rem;
+	
+}
+.team_description
+{
+	margin-top:0.5em;
+	font-family:'Roboto',sans-serif;
+	font-size:2.5rem;
+	
+}
+.team_link
+{
+	text-align: center;
+	padding-left:0;
+	padding-top:1em;
+}
+.team_link > li
+{
+	list-style: none;
+	display:inline-block;
+	padding-right:1em;
+	
+}
+p
+{
+	color:#3e3e3e;
+}
+
+
+body
+{
+	padding:0;
+}
+
+.footer
+{
+	position:relative;
+}

@@ -1,0 +1,33 @@
+
+
+
+.group-content
+{
+	height:81vh;
+	
+}
+.element-wrapper
+{
+	padding-bottom:2em;
+	
+}
+
+.us_list
+{
+	overflow-y: auto;
+	color:#3e3e3e;
+}
+
+.tile
+{
+	list-style:none;
+	text-align: center;
+	display:inline-block;
+	margin:1em;
+	border:2px solid #eee;
+	padding:1em;
+}
+.content > button
+{
+	margin-top:2em;
+}

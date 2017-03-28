@@ -2,17 +2,25 @@
 include 'config.php';
 session_start();
 $user = $_SESSION['username'];
+$log = $_SESSION['admin'];
+if ($log != "log"){
+	header ("Location: userlogin.php");
+}
+
 $msg = "";
 if (isset($_POST['group_create_submit'])) {
 	$group_name = $_POST['group_name'];
 	$group_desc = $_POST['group_desc'];
 	$domain_id = $_POST['domain_id'];
 	$group_id = rand() % 9999;
-	$SQL = "INSERT INTO group_title (group_name,group_desc,group_domain,group_leader,group_id) VALUES ('$group_name','$group_desc','$domain_id','$user','$group_id')";
+	$date = date("Y-m-d");
+	$sql="INSERT INTO groups(user_email,doj,group_id,position) VALUES('$user','$date','$group_id','admin')";
+	$result = mysql_query($sql);
+	$SQL = "INSERT INTO group_title (group_name,group_desc,group_domain,group_leader,group_id,group_create) VALUES ('$group_name','$group_desc','$domain_id','$user','$group_id','$date')";
 		$result = mysql_query($SQL);
 		if($result){
 			mysql_close($db_handle);
-			$msg = 'Group succesfully added.';
+			$msg = 'Group succesfully added.<br>Group Id : '.$group_id.'';
 		}
 		else{
 			mysql_close($db_handle);
@@ -40,6 +48,7 @@ if (isset($_POST['group_create_submit'])) {
 <!-- stylesheet-->
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/domain_style.css">
 	<link rel="stylesheet" type="text/css" href="css/user_login_style.css">
 
 <!-- bootstrap-->	
@@ -60,26 +69,72 @@ if (isset($_POST['group_create_submit'])) {
 <body>
 
 
-
-<nav class="header">
-  <div class="container">
-    <div class="navbar-header title">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <img src="images/icon.png">
-      </button>
-      <a class="navbar-brand" href="index.php">docket</a>
-    </div>
-   
-  </div>
-</nav>
-
-
-
+<div class="header">
+		<div class="container">
+			<div class="col-md-3 title">
+				<a href="index.php">docket</a>
+			</div>
+			
+			<div class="col-md-5"></div>
+			<div class="col-md-4 noti">
+			
+				<div class="dropdown inline">
+					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
+					  <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+					   Hello <?php print strtoupper($user); ?>
+					  <span class="caret"></span></button>
+					  <ul class="dropdown-menu">
+					    
+					    <li><a href="domain_setting.php">Settings</a></li>
+					      <li class="divider"></li>
+					    <li><a href="logout.php">Log Out</a></li>
+					  </ul>
+					</div>
+			</div>
+		</div>
+	</div>
 
 <div class="main">
 <div class="container">
 	
-	<div class="user_login col-md-6 col-md-offset-4" id="login">
+	<div class="col-md-3 domainbar" >
+
+		<i class="fa fa-pencil " aria-hidden="true"></i>
+		<a href="domain_compose.php" style="color:#fff"> Compose</a>
+	<br>
+		<i class="fa fa-envelope " aria-hidden="true"></i>
+		<a href="domain_inbox.php" style="color:#fff"> Inbox</a><?php
+					  				$mess = 0;
+					  				$count = 0;
+					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
+					  				$result = mysql_query($sql);
+					  				while ($db_field = mysql_fetch_assoc($result)) {
+										$count = $count + 1;
+									}
+									mysql_close($db_handle);
+										echo $count ;
+								?>	
+	<br>
+		<i class="fa fa-send " aria-hidden="true"></i>
+		<a href="domain_send.php" style="color:#fff"> Send Mail</a>
+	<br>
+		<i class="fa fa-plus " aria-hidden="true"></i>
+		<a href="group_create.php" style="color:#fff"> Create Group</a>
+	<br>
+		<i class="fa fa-eye" aria-hidden="true"></i>
+		<a href="domain_view_group.php" style="color:#fff">View Group</a>
+	<br>
+		<i class="fa fa-plus " aria-hidden="true"></i>
+		<a href="add_user.php" style="color:#fff"> Add User</a>
+	<br>	
+		<i class="fa fa-steam" aria-hidden="true"></i>
+		<a href="domain_manage_user.php" style="color:#fff">Manage User</a>		
+	<br>
+		<i class="fa fa-cog" aria-hidden="true"></i>
+		<a href="domain_manage_setting.php" style="color:#fff">Domain Settings</a>
+	
+	</div>
+	<div class="user_login col-md-6 col-md-offset-3" id="login">
 			<h2>Create Group</h2>
 
 			<form method='post'  name='user_register' action='group_create.php'>
@@ -100,10 +155,9 @@ if (isset($_POST['group_create_submit'])) {
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
+				
 			</ul>
 		</div>
 	

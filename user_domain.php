@@ -80,7 +80,7 @@ if (isset($_POST['user_domain_submit'])) {
 <div class="container">
 	
 	<div class="user_login col-md-6 col-md-offset-4" id="login">
-			<h2>Verification code</h2>
+			<h2>Domain ID</h2>
 			<form method='post'  name='user_domain' action='user_domain.php'>
 				 <p><span class="fa fa-envelope-o"></span><input type="text" name="user_domain" placeholder="Domain ID" required></p>
 				
@@ -88,17 +88,7 @@ if (isset($_POST['user_domain_submit'])) {
            		 <p><input type="submit" value="submit" name="user_domain_submit"></p>
 			</form>
 			<p><?php print $msg; ?></p>
-			<p>OR</p>
-			<div class="social_fb">
-				<i class="fa fa-facebook fa-2x"></i>
-				<i class="fa fa-twitter fa-2x"></i>  
-				<i class="fa fa-google fa-2x"></i>	
-			</div>
 			
-			
-			<p>Already have an account ?  <a href="#" class="blue"> Sign In now</a></p>
-			
-	
 	</div>
 </div>
 </div>	
@@ -106,10 +96,9 @@ if (isset($_POST['user_domain_submit'])) {
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
+				
 			</ul>
 		</div>
 	

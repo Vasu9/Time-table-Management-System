@@ -51,6 +51,15 @@ else{
 <!-- js scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+	.highlighted {
+    background-color: rgba(0,0,0,.55);
+	color: white;
+	font-family:opensans;
+
+}	
+</style>
   		
 </head>
 
@@ -118,13 +127,14 @@ else{
   </div>
 </nav>
 
-<div class="main">
+<div class="main" style="background:url(images/head1.jpg)">
 	<div class="main1">
 		<div class="container">
-			<div class="col-md-6"><br><br>
-				<h2>Docket is designed for scheduling and organising your time table and events</h2><br>
+		
+			<div class="col-md-8"><br><br>
+				<p class="highlighted" style="font-size: 2.6em">Docket is designed for scheduling and organising your time table and events</p><br>
 				
-</p>
+
 				
 			</div>
 			

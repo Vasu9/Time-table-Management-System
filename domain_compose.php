@@ -49,7 +49,6 @@ if ($log != "log"){
 <body>
 
 
-
 <div class="header">
 		<div class="container">
 			<div class="col-md-3 title">
@@ -58,34 +57,6 @@ if ($log != "log"){
 			
 			<div class="col-md-5"></div>
 			<div class="col-md-4 noti">
-				<div class="dropdown inline">
-					  <button class="notibutton  dropdown-toggle" type="button" data-toggle="dropdown">
-					  	<me class="fa fa-bell fa-2x" aria-hidden="true">
-					  		<sup>
-					  			<?php
-					  				$mess = 0;
-					  				$count = 0;
-					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
-					  				$result = mysql_query($sql);
-					  				while ($db_field = mysql_fetch_assoc($result)) {
-										$count = $count + 1;
-									}
-									mysql_close($db_handle);
-										echo $count ;
-								?>	
-					  		</sup>
-					  	</me>
-					  </button>
-					  <ul class="dropdown-menu">
-						    <li><a href="#">HTML</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">CSS</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">JavaScript</a></li>
-						    <li class="divider"></li>
-						   	<li><a href="#" class="notiexec">See more</a></li> 
-					  </ul>
-				</div>
 			
 				<div class="dropdown inline">
 					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
@@ -104,14 +75,28 @@ if ($log != "log"){
 	</div>
 
 <div class="main">
-	<div class="container">
-
+<div class="container">
+	
 	<div class="col-md-3 domainbar" >
+
 		<i class="fa fa-pencil " aria-hidden="true"></i>
 		<a href="domain_compose.php" style="color:#fff"> Compose</a>
 	<br>
-	    <i class="fa fa-envelope " aria-hidden="true"></i>
-		<a href="domain_inbox.php" style="color:#fff"> Inbox</a>
+		<i class="fa fa-envelope " aria-hidden="true"></i>
+		<a href="domain_inbox.php" style="color:#fff"> Inbox</a><?php
+					  				$mess = 0;
+					  				$count = 0;
+					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
+					  				$result = mysql_query($sql);
+					  				while ($db_field = mysql_fetch_assoc($result)) {
+										$count = $count + 1;
+									}
+									mysql_close($db_handle);
+										echo $count ;
+								?>	
+	<br>
+		<i class="fa fa-send " aria-hidden="true"></i>
+		<a href="domain_send.php" style="color:#fff"> Send Mail</a>
 	<br>
 		<i class="fa fa-plus " aria-hidden="true"></i>
 		<a href="group_create.php" style="color:#fff"> Create Group</a>
@@ -119,12 +104,16 @@ if ($log != "log"){
 		<i class="fa fa-eye" aria-hidden="true"></i>
 		<a href="domain_view_group.php" style="color:#fff">View Group</a>
 	<br>
+		<i class="fa fa-plus " aria-hidden="true"></i>
+		<a href="add_user.php" style="color:#fff"> Add User</a>
+	<br>	
 		<i class="fa fa-steam" aria-hidden="true"></i>
 		<a href="domain_manage_user.php" style="color:#fff">Manage User</a>		
 	<br>
 		<i class="fa fa-cog" aria-hidden="true"></i>
 		<a href="domain_manage_setting.php" style="color:#fff">Domain Settings</a>
-	</div>	
+	
+	</div>
 	
 	<div class="groups user_list col-md-9">
 
@@ -132,29 +121,54 @@ if ($log != "log"){
 $msg = "";
 
 
-if (isset($_POST['cancel'])) {
-	print "<script>location.href = 'messages.php'</script>";
-}
-else if (isset($_POST['send'])) {
-	$user = $_SESSION['username'];
-	$nem = $_POST['nem'];
+
+if (isset($_POST['send'])) {
+	$nem = $_POST['hid_nem'];
 	$sub = $_POST['sub'];
 	$mes = $_POST['mes'];
 	
+	if($nem == 'all'){
+		$sql = "SELECT * FROM domain WHERE d_email = '$user'";
+		$result = mysql_query($sql);
+		while ($db_field = mysql_fetch_assoc($result)) {
+			$a = $db_field['d_id'];
+			$sql1 = "SELECT * FROM info WHERE domain = '$a'";
+			$result1 = mysql_query($sql1);
+			while ($db_field = mysql_fetch_assoc($result1)) {
+			$b = $db_field['email'];
+			$SQL3 = "INSERT INTO messaging (to_receiver, from_sender, mail_subject,message) VALUES ('$b', '$user', '$sub', '$mes')";
+			$result3 = mysql_query($SQL3);
+			if(!$result3 ){
+				die("<SCRIPT LANGUAGE='JavaScript'>alert('Unknown Error Occured!')</script><script>location.href = 'domain_compose.php'</script>");
+			}
+			
+			$SQL4 = "INSERT INTO sent_items (to_receiver, from_sender, mail_subject, message) VALUES ('$b', '$user', '$sub', '$mes')";
+			$result4 = mysql_query($SQL4);
+			if(!$result4 ){
+				die("<SCRIPT LANGUAGE='JavaScript'>alert('Unknown Error Occured!')</script><script>location.href = 'messages.php'</script>");
+			}
+			
+			
+		}
+	}
+			$msg = "Message Sent.";	
+
+}
+else{
 	$SQL = "INSERT INTO messaging (to_receiver, from_sender, mail_subject,message) VALUES ('$nem', '$user', '$sub', '$mes')";
 	$result = mysql_query($SQL);
 	if(!$result ){
 		die("<SCRIPT LANGUAGE='JavaScript'>alert('Unknown Error Occured!')</script><script>location.href = 'domain_compose.php'</script>");
 	}
 	
-	$SQL = "INSERT INTO sent_items (`to_receiver`, `from_sender`, `mail_subject`, `message`) VALUES ('$nem', '$user', '$sub', '$mes')";
+	$SQL = "INSERT INTO sent_items (to_receiver, from_sender, mail_subject, message) VALUES ('$nem', '$user', '$sub', '$mes')";
 	$result = mysql_query($SQL);
 	if(!$result ){
 		die("<SCRIPT LANGUAGE='JavaScript'>alert('Unknown Error Occured!')</script><script>location.href = 'messages.php'</script>");
 	}
 	
 	$msg = "Message Sent.";
-	
+}	
 }
 ?>
 
@@ -201,6 +215,7 @@ else if (isset($_POST['send'])) {
 									</div>
 										
 		</form>
+		<p>1. For sending mail to all of the domain member please type 'all' in the sender mail id</p>
 	</div>
 		
 <?php
@@ -216,10 +231,8 @@ mysql_close($db_handle);
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 	

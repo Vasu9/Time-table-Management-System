@@ -40,7 +40,7 @@ p{
 	
 	background: url(../images/header_img.jpg)  ;
 	width: 100%;
-	min-height: 510px;
+	min-height: 580px;
 }
 
 /*       header       */
@@ -125,6 +125,8 @@ p{
 	margin: 0px;
 	padding: 0px;
 	color:#fff;
+	
+
 }
 
 .main1 h2{
@@ -290,7 +292,9 @@ p{
 	width: 100%;
 	min-height: 74px;
 	text-align: left;
-	padding-top: 23px
+	padding-top: 23px;
+	
+	bottom:0px;
 }
 
 .foot{
@@ -434,3 +438,5 @@ th {
 	font-size: 1.7em;
 	font-weight: bolder;
 }
+
+/* about us page */

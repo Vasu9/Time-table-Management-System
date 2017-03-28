@@ -3,7 +3,7 @@ session_start();
 $user = $_SESSION['username'];
 $log = $_SESSION['admin'];
 if ($log != "log"){
-	header ("Location: login.php");
+	header ("Location: userlogin.php");
 }
 
 $namekey = $_REQUEST['key'];

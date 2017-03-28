@@ -55,39 +55,20 @@ if ($log != "log"){
 			
 		<div class="col-md-5"></div>
 			<div class="col-md-4 noti">
-				<div class="dropdown inline">
-					  <button class="notibutton  dropdown-toggle" type="button" data-toggle="dropdown">
-					  	<me class="fa fa-bell fa-2x" aria-hidden="true">
-					  		<sup>
-					  		<?php
-					  				$mess = 0;
-					  				$count = 0;
-					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
-					  				$result = mysql_query($sql);
-					  				while ($db_field = mysql_fetch_assoc($result)) {
-										$count = $count + 1;
-									}
-									mysql_close($db_handle);
-										echo $count ;
-								?>	
-					  		</sup>
-					  	</me>
-					  </button>
-					  <ul class="dropdown-menu">
-						    <li><a href="#">HTML</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">CSS</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">JavaScript</a></li>
-						    <li class="divider"></li>
-						   	<li><a href="#" class="notiexec">See more</a></li> 
-					  </ul>
-				</div>
+			
 			
 				<div class="dropdown inline">
 					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
 					  <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-					   Hello <?php print strtoupper($user); ?>
+					   Hello <?php 
+
+$sql ="SELECT * FROM info WHERE email='$user'";
+$result = mysql_query($sql);
+while ($db_field = mysql_fetch_assoc($result)) {
+	$name = $db_field['name'];
+	print strtoupper($name);
+}
+?>
 					  <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
 					    
@@ -109,7 +90,17 @@ if ($log != "log"){
 					<a href="user_compose.php" class="addgroup " type="button"> Compose</a>
 				<br>
 					<i class="fa fa-envelope " aria-hidden="true"></i>
-					<a href="user_inbox.php" class="addgroup " type="button"> Inbox</a>
+					<a href="user_inbox.php" class="addgroup " type="button"> Inbox(<?php
+					  				$mess = 0;
+					  				$count = 0;
+					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
+					  				$result = mysql_query($sql);
+					  				while ($db_field = mysql_fetch_assoc($result)) {
+										$count = $count + 1;
+									}
+									mysql_close($db_handle);
+										echo $count ;
+								?>)</a>
 				<br>
 					<i class="fa fa-send " aria-hidden="true"></i>
 					<a href="user_send.php" class="addgroup " type="button"> Send Mail</a>
@@ -124,11 +115,22 @@ if ($log != "log"){
 							$result = mysql_query($SQL);
 								while ($db_field = mysql_fetch_assoc($result)) {
 									$a = $db_field['group_id'];
+									$c = $db_field['position'];
+									if($c == 'admin'){
 									$SQL = "SELECT * FROM group_title WHERE group_id='$a' ";
 									$result1 = mysql_query($SQL);
 										while ($db_field = mysql_fetch_assoc($result1)) {
 												$b=$db_field['group_name'];
-												echo '<li><a href="viewgroup.php?key='.$a.'">'.$b.'</a></li>';
+												echo '<li><a href="viewgroup1.php?key='.$a.'">'.$b.'</a><sup>Leader</sup></li>';
+										}
+									}
+									else{
+										$SQL = "SELECT * FROM group_title WHERE group_id='$a' ";
+										$result1 = mysql_query($SQL);
+										while ($db_field = mysql_fetch_assoc($result1)) {
+												$b=$db_field['group_name'];
+												echo '<li><a href="viewgroup1.php?key='.$a.'">'.$b.'</a></li>';
+										}
 									}	
 								}					
 						?>
@@ -138,7 +140,7 @@ if ($log != "log"){
 			<div class="grouplist2">
 				
 					<a class="addgroup " type="button" href="group_join.php">Join Group</a><br>
-					<a class="addgroup " type="button" href="group_create.php">Create Group</a>
+					<a class="addgroup " type="button" href="group_create1.php">Create Group</a>
 			</div>	
 		<div class="clearfix"></div>
 	</div>
@@ -195,9 +197,8 @@ mysql_close($db_handle);
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 
 			</ul>
 		</div>

@@ -1,0 +1,58 @@
+
+.main1
+{
+	color:#3e3e3e;
+}
+.Action > *
+{
+	display:inline-block;
+}
+
+.Action > h2
+{
+	color:#3e3e3e;
+}
+
+.right
+{
+	float:right;
+	margin-right:0.5em;
+}
+.user-content
+{
+	padding:3em;
+	padding-bottom:0;
+}
+
+.description 
+{
+	margin-top:1em;
+}
+.description > p
+{
+	color:#3e3e3e;
+	font-weight:normal;
+	font-family:'Roboto',sans-serif;
+	padding:1em;
+	text-align: justify;
+}
+.center
+{
+	text-align: center;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, tr {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 25px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

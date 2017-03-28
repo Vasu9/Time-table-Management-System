@@ -8,60 +8,29 @@ if (isset($_POST['user_register_submit'])) {
 	$user_cpass = $_POST['user_cpass'];
 	$user_mob = $_POST['user_mob'];
 	$user_email = $_POST['user_email'];
-	
+	$date = date('y-m-d');
+	$name = $_POST['name'];
 	if($user_pass != $user_cpass){
 		$msg = "Password did not match.";
+
 	}
 	else{
-		$SQL1 = "INSERT INTO info (email,password,position) VALUES ('$user_email', '$user_pass' ,'member')";
+		$sql2 ="SELECT * FROM info WHERE email = '$user_email'";
+		$result2=mysql_query($sql2);
+		if(mysql_num_rows($result2)){
+			$msg = "email id Already exist" ;
+		}
+		else{
+		$SQL1 = "INSERT INTO info (email,password,doj,domain,name,mobile,position) VALUES ('$user_email', '$user_pass','$date','','$name','$user_mob' ,'member')";
 		$result1=mysql_query($SQL1);
 		if($result1){
-			require_once "PHPMailer-master/PHPMailerAutoload.php";
-$mail = new PHPMailer;
-//Enable SMTP debugging. 
-$mail->SMTPDebug = 3;                               
-//Set PHPMailer to use SMTP.
-$mail->isSMTP();            
-//Set SMTP host name                          
-$mail->Host = "smtp.gmail.com";
-//Set this to true if SMTP host requires autantication to send email
-$mail->SMTPAuth = true;                          
-//Provide username and password     
-$mail->Username = "docketswe@gmail.com";                 
-$mail->Password = "pushpendra";                           
-//If SMTP requires TLS encryption then set it
-$mail->SMTPSecure = "tls";                           
-//Set TCP port to connect to 
-$mail->Port = 465;                                   
-
-$mail->From = "docketswee@gmail.com";
-$mail->FromName = "docket";
-
-$mail->addAddress($user_email, $user_name);
-
-$mail->isHTML(true);
-
-$mail->Subject = "verification_code";
-$mail->Body = "hello g";
-
-if(!$mail->send()) 
-{
-    echo "Mailer Error: " . $mail->ErrorInfo;
-} 
-else 
-{
-    echo "Message TEMPhas been sent successfully";
-}
-
-
-
-
-			print("<script>location.href = 'userlogin.php'</script>");
+				print("<script>location.href = 'userlogin.php'</script>");
 		}	
-				
-
+	
 	}
+}	
 }
+mysql_close($db_handle);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,20 +82,21 @@ else
   </div>
 </nav>
 
-<div class="main">
+<div class="main" style="background:url(images/head1.jpg);">
 <div class="container">
 	
 	<div class="user_login col-md-6 col-md-offset-4" id="login">
 			<h2>Sign Up</h2>
-			<form method='post'  name='user_register' action='usersignup.php'>
+			<form method='post'  name='user_register' action='usersignup.php' role='form'>
+				 <p><span class="fa fa-user"></span><input type="text" name="name" placeholder="Name" required></p>
 				 <p><span class="fa fa-envelope-o"></span><input type="text" name="user_email" placeholder="Email Id" required></p>
 				 <p><span class="fa fa-lock"></span><input type="password" name="user_pass" placeholder="Password" required></p>
 				 <p><span class="fa fa-lock"></span><input type="password" name="user_cpass" placeholder="Confirm Password" required></p>
-				 <p><span class="fa fa-phone"></span><input type="text" name="user_mob" placeholder="Mobile Number" required></p>
+				 <p><span class="fa fa-phone"></span><input type="number" name="user_mob" placeholder="Mobile Number" required ></p>
 				 <p><input type="submit" value="Sign Up" name="user_register_submit"></p>
 			</form>
-			<p><?php print $msg; ?></p>
-			<p>Already have an account ?  <a href="userlogin.php" class="blue"> Sign In now</a></p>
+			<b><h3><?php print $msg; ?></h3></b>
+			<p><a href="userlogin.php" class="blue"> Sign In now</a></p>
 			
 	
 	</div>
@@ -136,12 +106,13 @@ else
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 	
 				</div>
 	</div>
+
 </body>
 </html>

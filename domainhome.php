@@ -58,34 +58,6 @@ if ($log != "log"){
 			
 			<div class="col-md-5"></div>
 			<div class="col-md-4 noti">
-				<div class="dropdown inline">
-					  <button class="notibutton  dropdown-toggle" type="button" data-toggle="dropdown">
-					  	<me class="fa fa-bell fa-2x" aria-hidden="true">
-					  		<sup>
-					  			<?php
-					  				$mess = 0;
-					  				$count = 0;
-					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
-					  				$result = mysql_query($sql);
-					  				while ($db_field = mysql_fetch_assoc($result)) {
-										$count = $count + 1;
-									}
-									mysql_close($db_handle);
-										echo $count ;
-								?>	
-					  		</sup>
-					  	</me>
-					  </button>
-					  <ul class="dropdown-menu">
-						    <li><a href="#">HTML</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">CSS</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">JavaScript</a></li>
-						    <li class="divider"></li>
-						   	<li><a href="#" class="notiexec">See more</a></li> 
-					  </ul>
-				</div>
 			
 				<div class="dropdown inline">
 					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
@@ -112,7 +84,17 @@ if ($log != "log"){
 		<a href="domain_compose.php" style="color:#fff"> Compose</a>
 	<br>
 		<i class="fa fa-envelope " aria-hidden="true"></i>
-		<a href="domain_inbox.php" style="color:#fff"> Inbox</a>
+		<a href="domain_inbox.php" style="color:#fff"> Inbox</a><?php
+					  				$mess = 0;
+					  				$count = 0;
+					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
+					  				$result = mysql_query($sql);
+					  				while ($db_field = mysql_fetch_assoc($result)) {
+										$count = $count + 1;
+									}
+									mysql_close($db_handle);
+										echo $count ;
+								?>	
 	<br>
 		<i class="fa fa-send " aria-hidden="true"></i>
 		<a href="domain_send.php" style="color:#fff"> Send Mail</a>
@@ -123,6 +105,9 @@ if ($log != "log"){
 		<i class="fa fa-eye" aria-hidden="true"></i>
 		<a href="domain_view_group.php" style="color:#fff">View Group</a>
 	<br>
+		<i class="fa fa-plus " aria-hidden="true"></i>
+		<a href="add_user.php" style="color:#fff"> Add User</a>
+	<br>	
 		<i class="fa fa-steam" aria-hidden="true"></i>
 		<a href="domain_manage_user.php" style="color:#fff">Manage User</a>		
 	<br>
@@ -137,21 +122,7 @@ if ($log != "log"){
 			<div class="col-md-9 col-md-offset-3">
 				<div class="panel panel-login">
 					<div class="panel-heading">
-						<div class="col-md-6">
-							<h2>User List</h2>
-							<?php
-								$SQL = "SELECT * FROM domain WHERE d_email='$user'";
-							 	$result = mysql_query($SQL);
-								while ($db_field = mysql_fetch_assoc($result)) {
-									$domain = $db_field['d_id'];
-									$SQL = "SELECT * FROM info WHERE domain='$domain'";
-									$result = mysql_query($SQL);
-									while ($db_field = mysql_fetch_assoc($result)) {
-										$a = $db_field['email'];
-										echo '<a href="viewuser.php?key='.$a.'">'.$a.'</a><br>';
-								}}									
-							?>	
-						</div>
+						
 						<div class="col-md-6">
 							<h2>Group List</h2>
 							<?php
@@ -184,10 +155,8 @@ if ($log != "log"){
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 

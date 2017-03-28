@@ -4,7 +4,7 @@ session_start();
 $user = $_SESSION['username'];
 $log = $_SESSION['admin'];
 if ($log != "log"){
-	header ("Location: login.php");
+	header ("Location: userlogin.php");
 }
 ?>
 
@@ -43,48 +43,79 @@ if ($log != "log"){
 <!-- js scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  		
+  	<link rel="stylesheet" type="text/css" href="css/domain_view_group.css">	
 </head>
 
 <body>
-<nav class="header">
-  <div class="container">
-    <div class="navbar-header title">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <img src="images/icon.png">
-      </button>
-      <a class="navbar-brand" href="index.php">docket</a>
-    </div>
-   
-  </div>
-</nav>
-
+<div class="header">
+		<div class="container">
+			<div class="col-md-3 title">
+				<a href="index.php">docket</a>
+			</div>
+			
+			<div class="col-md-5"></div>
+			<div class="col-md-4 noti">
+			
+				<div class="dropdown inline">
+					  <button class="notibutton dropdown-toggle" type="button" data-toggle="dropdown">
+					  <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+					   Hello <?php print strtoupper($user); ?>
+					  <span class="caret"></span></button>
+					  <ul class="dropdown-menu">
+					    
+					    <li><a href="domain_setting.php">Settings</a></li>
+					      <li class="divider"></li>
+					    <li><a href="logout.php">Log Out</a></li>
+					  </ul>
+					</div>
+			</div>
+		</div>
+	</div>
 
 <div class="main">
-	<div class="container">
-
+<div class="container">
+	
 	<div class="col-md-3 domainbar" >
+
+		<i class="fa fa-pencil " aria-hidden="true"></i>
+		<a href="domain_compose.php" style="color:#fff"> Compose</a>
+	<br>
+		<i class="fa fa-envelope " aria-hidden="true"></i>
+		<a href="domain_inbox.php" style="color:#fff"> Inbox</a><?php
+					  				$mess = 0;
+					  				$count = 0;
+					  				$sql = "SELECT * FROM messaging WHERE to_receiver = '$user' AND opened = 0";
+					  				$result = mysql_query($sql);
+					  				while ($db_field = mysql_fetch_assoc($result)) {
+										$count = $count + 1;
+									}
+									mysql_close($db_handle);
+										echo $count ;
+								?>	
+	<br>
+		<i class="fa fa-send " aria-hidden="true"></i>
+		<a href="domain_send.php" style="color:#fff"> Send Mail</a>
+	<br>
 		<i class="fa fa-plus " aria-hidden="true"></i>
 		<a href="group_create.php" style="color:#fff"> Create Group</a>
 	<br>
 		<i class="fa fa-eye" aria-hidden="true"></i>
 		<a href="domain_view_group.php" style="color:#fff">View Group</a>
 	<br>
+		<i class="fa fa-plus " aria-hidden="true"></i>
+		<a href="add_user.php" style="color:#fff"> Add User</a>
+	<br>	
 		<i class="fa fa-steam" aria-hidden="true"></i>
 		<a href="domain_manage_user.php" style="color:#fff">Manage User</a>		
 	<br>
 		<i class="fa fa-cog" aria-hidden="true"></i>
 		<a href="domain_manage_setting.php" style="color:#fff">Domain Settings</a>
-	</div>	
 	
-	<div class="groups user_list col-md-9">
-		<table border = "2" width = "100%">
-			<tr class="bold">
-				<td align = 'center'>Group</td>
-				<td align = 'center'>Leader</td>
-				<td align = 'center'>Member/s</td>
-				<td align = 'center'>Action</td>
-			</tr>
+	</div>
+	
+	<div class="groups user_list col-md-9 us_list">
+	
+		<ul>	
 				<?php
 				$SQ="SELECT * FROM domain WHERE d_email = '$user'";
 				$res = mysql_query($SQ);
@@ -96,27 +127,18 @@ if ($log != "log"){
 				$a = $db_field['group_name'];
 				$b = $db_field['group_leader'];
 				$e = $db_field['group_id'];
-				print("<tr><td align = 'center'><b><a href='viewgroup.php?key=".$e."'>".$a."</b></td>");
-				if($b == ""){
-					print("<td align = 'center'><b>no leader</font></b></td>");	
-				}
-				else{
-					print("<td align = 'center'><a href='viewuser.php?key=".$b."'>".$b."</td>");
-				}
-				print("<td align = 'center'>");
-				$SQL1 = "SELECT * FROM groups WHERE group_id = '$e'";
-				$result1 = mysql_query($SQL1);
-				while ($db_field = mysql_fetch_assoc($result1)) {
-					$c = $db_field['user_email'];
-					print ("<a href='viewuser.php?key=".$c."'>".$c.", ");
-				}
-				print("</td>");
-				print("<td width = '70px' align = 'center'><a href = 'delete_group.php?key=".$e."'><i class='fa fa-trash'></i> </a>");
-				print("<a href = 'edit_group.php?key=".$a."'> <i class='fa fa-edit'></i></a>");
+				echo '<li class="tile"><div class="image-wrapper">	
+					<img src="images/group.jpg" class="img-responsive">
+				</div><div class="content"><div class="name"><a href="viewgroup.php?key='.$e.'"><span>
+				'.$a.'</a></span></div><br>';
+				echo '<a class="btn btn-warning btn-small" href="delete_group.php?key='.$e.'">Delete</a>';
+				echo '</div>
+			</li>';
+				
 				}}
 				mysql_close($db_handle);
 				?>
-		</table>
+		</ul>
 	  </div>	
 	</div>
 </div>
@@ -124,10 +146,8 @@ if ($log != "log"){
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 	

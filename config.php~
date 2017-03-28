@@ -1,12 +1,12 @@
 <?php    
     $host = "localhost"; 
-    $user = "root"; 
-    $pass = ""; 
-    $db = "swe"; 
+    $user = "sahily13"; 
+    $pass = "Sahil224@"; 
+    $db = "docket_lnmiit"; 
     $p = mysql_connect($host, $user, $pass); 
     $db_found = mysql_select_db($db, $p);
 if (!$db_found) {
-	die("DATABASE not found!");
+	echo "DATABASE not found!";
 }
  
 ?>

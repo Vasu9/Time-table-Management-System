@@ -13,23 +13,30 @@ if (isset($_POST['domain_register'])) {
 	$d_mob = $_POST['d_mob'];
 	$d_descr = $_POST['d_descr'];
 	$d_address = $_POST['d_address'];
-	
+	$date = date("Y-m-d");
 	
 	if($d_pass!=$d_cpass){
 		$msg = "Password do not matach";
 	}
 	else{
+		$sql2 ="SELECT * FROM info WHERE email = '$d_email'";
+		$result2=mysql_query($sql2);
+		if(mysql_num_rows($result2)){
+			$msg = "email id Already exist" ;
+		}
+		else{
 		$d_id = rand() % 9999;
-		$d_veri = rand();
-		$SQL = "INSERT INTO domain(d_name , d_pass , d_email , d_mob , d_descr , d_address , d_id  ) VALUES ('$d_name','$d_pass','$d_email','$d_mob','$d_descr','$d_address','$d_id' )";
+		$SQL = "INSERT INTO domain(d_name , d_pass , d_email , d_mob , d_descr , d_address , d_id ,domain_create ) VALUES ('$d_name','$d_pass','$d_email','$d_mob','$d_descr','$d_address','$d_id' , '$date')";
 		$result = mysql_query($SQL);
-		$SQL1 = "INSERT INTO info (email,password,position) VALUES ('$d_email', '$d_pass', 'admin')";
+		$SQL1 = "INSERT INTO info (email,password,domain,mobile,doj,position) VALUES ('$d_email', '$d_pass','$d_id','$d_mob','$date', 'admin')";
 		$result1=mysql_query($SQL1);
 		if($result1){
-			print("<script>location.href = 'userlogin.php'</script>");
-		}	
+			print("<script>location.href = 'domainsignup.php'</script>");
+		}
+		}
 	}
 }
+
 ?>							
 	
 
@@ -67,6 +74,8 @@ if (isset($_POST['domain_register'])) {
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
+
+
 <!-- icons-->
 
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
@@ -93,7 +102,7 @@ if (isset($_POST['domain_register'])) {
 </nav>
 
 
-<div class="main">
+<div class="">
 <div class="container">
 	
 	<div class="col-md-12 domain_form">
@@ -117,7 +126,7 @@ if (isset($_POST['domain_register'])) {
 								
 							<form id="domain_register_1" action="domainregister.php" method="post" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="d_email" tabindex="2" class="form-control" placeholder="Email" required>
+										<input type="text" name="d_email" tabindex="1" class="form-control" placeholder="Email" required>
 									</div>
 									<div class="form-group">
 										<input type="password" name="d_pass" tabindex="1" class="form-control" placeholder="Password" value="" required>
@@ -142,7 +151,7 @@ if (isset($_POST['domain_register'])) {
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<?php echo $msg ; ?>
+												<h2><b><?php echo $msg ; ?></b></h2>
 												<input type="submit" name="domain_register"  tabindex="4" class="form-control  btn-register" value="Register Now">
 											</div>
 										</div>
@@ -165,14 +174,17 @@ if (isset($_POST['domain_register'])) {
 		<div class="container">
 		<div class="col-md-8 foot">
 			<ul>
-				<li><a href="about.html">About Us</a></li>
-				<li><a href="contact.html">Contact Us</a></li>
-				<li><a href="domain.html">Domain</a></li>
-
+				<li><a href="about.php">About Us</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
 			</ul>
 		</div>
 	
 		</div>
 	</div>
+<?php
+
+mysql_close($db_handle);
+
+?>	
 </body>
 </html>
